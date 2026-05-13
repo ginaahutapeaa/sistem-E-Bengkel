@@ -1,441 +1,299 @@
-<!-- resources/views/kendaraan/index.blade.php -->
-
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Bengkel Modern</title>
+    <title>Neo Garage | Sistem E-Bengkel</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
-
-        *{
-            font-family: 'Outfit', sans-serif;
-        }
-
-        body{
-            background: #0f172a;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* Sidebar */
-
-        .sidebar{
-            width: 260px;
-            height: 100vh;
-            position: fixed;
-            background: linear-gradient(180deg,#111827,#1e293b);
-            padding: 30px 20px;
-            border-right: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .logo{
-            color: white;
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 50px;
-        }
-
-        .menu{
-            list-style: none;
+        * {
+            margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
-        .menu li{
-            margin-bottom: 15px;
-        }
-
-        .menu a{
-            text-decoration: none;
-            color: #cbd5e1;
-            display: block;
-            padding: 15px 18px;
-            border-radius: 15px;
-            transition: 0.3s;
-            font-size: 16px;
-        }
-
-        .menu a:hover,
-        .menu .active{
-            background: linear-gradient(45deg,#3b82f6,#8b5cf6);
-            color: white;
-            transform: translateX(5px);
-        }
-
-        /* Content */
-
-        .content{
-            margin-left: 260px;
-            padding: 40px;
-        }
-
-        .topbar{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 35px;
-        }
-
-        .title h1{
-            color: white;
-            font-weight: 700;
-            font-size: 40px;
-        }
-
-        .title p{
-            color: #94a3b8;
-        }
-
-        .profile{
-            background: #1e293b;
-            padding: 12px 20px;
-            border-radius: 15px;
+        body {
+            font-family: 'Poppins', sans-serif;
+            background:
+                radial-gradient(circle at top right, rgba(0,255,255,0.12), transparent 25%),
+                radial-gradient(circle at bottom left, rgba(255,0,255,0.10), transparent 30%),
+                linear-gradient(135deg, #030712, #0f172a, #111827);
+            min-height: 100vh;
             color: white;
         }
 
-        /* Statistik */
-
-        .card-mini{
-            background: linear-gradient(145deg,#1e293b,#111827);
-            padding: 25px;
-            border-radius: 25px;
-            color: white;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        /* NAVBAR */
+        .navbar-custom {
+            background: rgba(8, 15, 40, 0.75);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(0,255,255,0.12);
+            padding: 18px 0;
+            box-shadow: 0 0 25px rgba(0,255,255,0.08);
         }
 
-        .card-mini h2{
-            font-size: 35px;
-            font-weight: 700;
+        .navbar-brand {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 30px;
+            font-weight: 800;
+            color: #00f5d4 !important;
+            letter-spacing: 3px;
+            text-shadow: 0 0 12px rgba(0,245,212,0.4);
         }
 
-        .icon-box{
-            width: 60px;
-            height: 60px;
-            border-radius: 18px;
-            background: linear-gradient(45deg,#3b82f6,#8b5cf6);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
+        /* MAIN CARD */
+        .card-box {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 30px;
+            padding: 35px;
+            box-shadow:
+                0 0 30px rgba(0,255,255,0.08),
+                inset 0 0 25px rgba(255,255,255,0.02);
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Card Table */
-
-        .card-box{
-            background: linear-gradient(145deg,#1e293b,#111827);
-            border-radius: 25px;
-            padding: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        .card-box::before {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            background: radial-gradient(circle, rgba(0,255,255,0.12), transparent 70%);
+            top: -100px;
+            right: -80px;
+            border-radius: 50%;
         }
 
-        .header-card{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            background: linear-gradient(to right, #00f5d4, #00bbf9, #9b5de5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
         }
 
-        .header-card h3{
-            color: white;
-            font-weight: 600;
-        }
-
-        .btn-modern{
+        /* BUTTON */
+        .btn-add {
+            background: linear-gradient(135deg, #00f5d4, #00bbf9);
+            color: #001219;
             border: none;
-            padding: 14px 22px;
-            border-radius: 15px;
-            background: linear-gradient(45deg,#06b6d4,#3b82f6);
-            color: white;
-            font-weight: 600;
-            transition: 0.3s;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 0 18px rgba(0,245,212,0.35);
+            transition: 0.3s ease;
         }
 
-        .btn-modern:hover{
+        .btn-add:hover {
             transform: scale(1.05);
+            color: #001219;
         }
 
-        /* Table */
-
-        .table{
+        /* TABLE */
+        .table {
             color: white;
             border-collapse: separate;
-            border-spacing: 0 15px;
+            border-spacing: 0 12px;
         }
 
-        .table thead th{
+        .table thead tr {
+            background: linear-gradient(135deg, rgba(0,255,255,0.15), rgba(155,93,229,0.15));
+        }
+
+        .table thead th {
             border: none;
-            color: #94a3b8;
-            font-weight: 500;
+            color: #00f5d4;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 18px;
+            font-size: 14px;
         }
 
-        .table tbody tr{
-            background: #0f172a;
-            transition: 0.3s;
+        .table tbody tr {
+            background: rgba(255,255,255,0.04);
+            transition: all 0.3s ease;
         }
 
-        .table tbody tr:hover{
-            transform: translateY(-3px);
-            background: #172033;
+        .table tbody tr:hover {
+            transform: scale(1.01);
+            background: rgba(0,255,255,0.07);
+            box-shadow: 0 0 18px rgba(0,255,255,0.08);
         }
 
-        .table tbody td{
-            padding: 22px;
+        .table td {
             border: none;
+            padding: 18px;
             vertical-align: middle;
-            font-size: 15px;
         }
 
-        .badge{
-            border-radius: 10px;
-            padding: 10px 14px;
-            font-weight: 500;
-        }
-
-        /* Status */
-
-        .status{
+        /* PLAT */
+        .plat-box {
+            background: linear-gradient(135deg, #ff006e, #8338ec);
+            color: white;
             padding: 8px 14px;
-            border-radius: 30px;
-            font-size: 13px;
+            border-radius: 14px;
+            font-weight: 700;
+            display: inline-block;
+            box-shadow: 0 0 12px rgba(255,0,110,0.25);
+        }
+
+        /* MERK */
+        .merk-box {
+            background: rgba(0,245,212,0.12);
+            color: #00f5d4;
+            padding: 8px 14px;
+            border-radius: 20px;
             font-weight: 600;
+            display: inline-block;
         }
 
-        .selesai{
-            background: rgba(34,197,94,0.2);
-            color: #22c55e;
+        /* BUTTON ACTION */
+        .btn-edit {
+            background: linear-gradient(135deg, #ffbe0b, #fb5607);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 8px 18px;
+            font-weight: 700;
         }
 
-        .proses{
-            background: rgba(251,191,36,0.2);
-            color: #facc15;
+        .btn-delete {
+            background: linear-gradient(135deg, #ff006e, #d90429);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 8px 18px;
+            font-weight: 700;
         }
 
+        .btn-edit:hover,
+        .btn-delete:hover {
+            opacity: 0.9;
+            color: white;
+            transform: scale(1.04);
+        }
+
+        /* EMPTY */
+        .empty-data {
+            text-align: center;
+            padding: 50px;
+            color: rgba(255,255,255,0.65);
+        }
     </style>
-
 </head>
-
 <body>
 
-    <!-- Sidebar -->
-
-    <div class="sidebar">
-
-        <div class="logo">
-            <i class="fa-solid fa-car-side"></i>
-            E-Bengkel
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container">
+            <a class="navbar-brand" href="/kendaraan">
+                ⚡ E-BENGKEL
+            </a>
         </div>
+    </nav>
 
-        <ul class="menu">
-
-            <li>
-                <a href="#">
-                    <i class="fa-solid fa-house"></i>
-                    Dashboard
-                </a>
-            </li>
-
-            <li>
-                <a href="#" class="active">
-                    <i class="fa-solid fa-screwdriver-wrench"></i>
-                    Kendaraan
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
-                    <i class="fa-solid fa-chart-column"></i>
-                    Statistik
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
-                    <i class="fa-solid fa-gear"></i>
-                    Pengaturan
-                </a>
-            </li>
-
-        </ul>
-
-    </div>
-
-    <!-- Content -->
-
-    <div class="content">
-
-        <!-- Topbar -->
-
-        <div class="topbar">
-
-            <div class="title">
-                <h1>Daftar Kendaraan</h1>
-                <p>Sistem pencatatan servis kendaraan modern.</p>
-            </div>
-
-            <div class="profile">
-                <i class="fa-solid fa-user"></i>
-                Admin Bengkel
-            </div>
-
-        </div>
-
-        <!-- Statistik -->
-
-        <div class="row">
-
-            <div class="col-md-4">
-
-                <div class="card-mini d-flex justify-content-between align-items-center">
-
-                    <div>
-                        <p>Total Kendaraan</p>
-                        <h2>24</h2>
-                    </div>
-
-                    <div class="icon-box">
-                        <i class="fa-solid fa-car"></i>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="col-md-4">
-
-                <div class="card-mini d-flex justify-content-between align-items-center">
-
-                    <div>
-                        <p>Sedang Proses</p>
-                        <h2>8</h2>
-                    </div>
-
-                    <div class="icon-box">
-                        <i class="fa-solid fa-gear"></i>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="col-md-4">
-
-                <div class="card-mini d-flex justify-content-between align-items-center">
-
-                    <div>
-                        <p>Servis Selesai</p>
-                        <h2>16</h2>
-                    </div>
-
-                    <div class="icon-box">
-                        <i class="fa-solid fa-circle-check"></i>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- Table -->
+    <!-- CONTENT -->
+    <div class="container mt-5">
 
         <div class="card-box">
 
-            <div class="header-card">
+            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+                <h2>DAFTAR SERVIS</h2>
 
-                <h3>
-                    Data Servis Kendaraan
-                </h3>
-
-                <button class="btn-modern">
-                    <i class="fa-solid fa-plus"></i>
-                    Tambah Kendaraan
-                </button>
-
+                <a href="/kendaraan/create" class="btn btn-add">
+                    + Tambah Kendaraan
+                </a>
             </div>
 
-            <table class="table align-middle">
+            <div class="table-responsive">
+                <table class="table">
 
-                <thead>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Plat Nomor</th>
+                            <th>Nama Pemilik</th>
+                            <th>Merk Kendaraan</th>
+                            <th>Keluhan</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
 
-                    <tr>
-                        <th>No</th>
-                        <th>Plat Nomor</th>
-                        <th>Pemilik</th>
-                        <th>Merk</th>
-                        <th>Keluhan</th>
-                        <th>Status</th>
-                    </tr>
+                    <tbody>
 
-                </thead>
+                        @forelse($data as $item)
 
-                <tbody>
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
 
-                    <tr>
+                            <td>
+                                <span class="plat-box">
+                                    {{ $item->plat_nomor }}
+                                </span>
+                            </td>
 
-                        <td>1</td>
+                            <td class="fw-semibold">
+                                {{ $item->nama_pemilik }}
+                            </td>
 
-                        <td>
-                            <strong>BK 1234 AA</strong>
-                        </td>
+                            <td>
+                                <span class="merk-box">
+                                    {{ $item->merk_kendaraan }}
+                                </span>
+                            </td>
 
-                        <td>Regina</td>
+                            <td>{{ $item->keluhan }}</td>
 
-                        <td>
-                            <span class="badge bg-primary">
-                                Honda Beat
-                            </span>
-                        </td>
+                            <td class="d-flex gap-2">
 
-                        <td>Mesin Mati</td>
+                                <a href="/kendaraan/{{ $item->id }}/edit"
+                                   class="btn btn-edit btn-sm">
+                                   ✏ Edit
+                                </a>
 
-                        <td>
-                            <span class="status selesai">
-                                Selesai
-                            </span>
-                        </td>
+                                <form action="/kendaraan/{{ $item->id }}"
+                                      method="POST"
+                                      onsubmit="return confirm('Hapus kendaraan dari antrean?')">
 
-                    </tr>
+                                    @csrf
+                                    @method('DELETE')
 
-                    <tr>
+                                    <button type="submit"
+                                            class="btn btn-delete btn-sm">
+                                        ⛔ Hapus
+                                    </button>
 
-                        <td>2</td>
+                                </form>
 
-                        <td>
-                            <strong>BK 8899 ZZ</strong>
-                        </td>
+                            </td>
+                        </tr>
 
-                        <td>Budi</td>
+                        @empty
 
-                        <td>
-                            <span class="badge bg-info">
-                                Yamaha NMAX
-                            </span>
-                        </td>
+                        <tr>
+                            <td colspan="6">
+                                <div class="empty-data">
+                                    <h3>🚘 Belum Ada Data Kendaraan</h3>
+                                    <p>Tambahkan kendaraan baru untuk memulai sistem.</p>
+                                </div>
+                            </td>
+                        </tr>
 
-                        <td>Ganti Oli</td>
+                        @endforelse
 
-                        <td>
-                            <span class="status proses">
-                                Proses
-                            </span>
-                        </td>
+                    </tbody>
 
-                    </tr>
-
-                </tbody>
-
-            </table>
+                </table>
+            </div>
 
         </div>
 
